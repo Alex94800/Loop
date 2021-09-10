@@ -22,7 +22,16 @@ public extension DosingStrategy {
             return NSLocalizedString("Automatic Bolus", comment: "Title string for automatic bolus dosing strategy")
         }
     }
-    
+
+    var fullTitle: String {
+        switch self {
+        case .automaticBolus:
+            return NSLocalizedString("Automatic Bolus (Experimental)", comment: "Title string for automatic bolus dosing strategy")
+        default:
+            return title
+        }
+    }
+
     var subtitle: String {
         switch self {
         case .tempBasalOnly:
@@ -57,7 +66,7 @@ public struct LoopSettings: Equatable {
     public var suspendThreshold: GlucoseThreshold? = nil
 
     public let retrospectiveCorrectionEnabled = true
-    
+
     public var dosingStrategy: DosingStrategy = .tempBasalOnly
 
     /// The interval over which to aggregate changes in glucose for retrospective correction
@@ -76,7 +85,7 @@ public struct LoopSettings: Equatable {
     public let defaultWatchCarbPickerValue = 15 // grams
 
     public let defaultWatchBolusPickerValue = 1.0 // %
-    
+
     public let bolusPartialApplicationFactor = 0.4 // %
 
     // MARK - Display settings
@@ -263,7 +272,7 @@ extension LoopSettings: RawRepresentable {
         if let rawThreshold = rawValue["minimumBGGuard"] as? GlucoseThreshold.RawValue {
             self.suspendThreshold = GlucoseThreshold(rawValue: rawThreshold)
         }
-        
+
         if let rawDosingStrategy = rawValue["dosingStrategy"] as? DosingStrategy.RawValue,
             let dosingStrategy = DosingStrategy(rawValue: rawDosingStrategy) {
             self.dosingStrategy = dosingStrategy
