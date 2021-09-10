@@ -1576,7 +1576,7 @@ extension Notification.Name {
     static let LoopCompleted = Notification.Name(rawValue: "com.loopkit.Loop.LoopCompleted")
 }
 
-protocol LoopDataManagerDelegate: class {
+protocol LoopDataManagerDelegate: AnyObject {
 
     /// Informs the delegate that an immediate basal change is recommended
     ///
